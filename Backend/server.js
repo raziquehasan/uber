@@ -8,8 +8,15 @@ const server = http.createServer(app);
 const { Server } = require('socket.io');
 const io = new Server(server, {
   cors: {
-    origin: '*',
-    methods: ['GET', 'POST']
+    origin: [
+      'http://localhost:5173',
+      'http://localhost:3000',
+      'https://68d638fe5be09836e22ea836--ubercreatedbyrazique.netlify.app',
+      'https://ubercreatedbyrazique.netlify.app',
+      /\.netlify\.app$/
+    ],
+    methods: ['GET', 'POST'],
+    credentials: true
   }
 });
 

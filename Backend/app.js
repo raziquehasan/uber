@@ -17,7 +17,8 @@ app.use(cors({
         'http://localhost:5173',
         'http://localhost:3000',
         'https://68d638fe5be09836e22ea836--ubercreatedbyrazique.netlify.app',
-        'https://ubercreatedbyrazique.netlify.app'
+        'https://ubercreatedbyrazique.netlify.app',
+        /\.netlify\.app$/
     ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
