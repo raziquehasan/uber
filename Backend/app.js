@@ -49,6 +49,14 @@ app.get('/test-cors', (req, res) => {
     });
 });
 
+// Test users route
+app.get('/users/test', (req, res) => {
+    res.json({ 
+        message: 'Users route is working!',
+        timestamp: new Date().toISOString()
+    });
+});
+
 app.use('/users', userRoutes);
 app.use('/captains', captainRoutes);
 app.use('/maps', mapsRoutes);
