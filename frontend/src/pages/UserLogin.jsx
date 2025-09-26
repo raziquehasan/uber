@@ -15,7 +15,7 @@ const UserLogin = () => {
   const handleGoogleSuccess = async (googleUser) => {
     try {
       // Send Google user data to your backend for verification
-      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/google-login`, {
+      const response = await axios.post('/users/google-login', {
         googleId: googleUser.id,
         email: googleUser.email,
         name: googleUser.name,
@@ -47,7 +47,7 @@ const UserLogin = () => {
       password: password
     }
 
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/login`, userData)
+    const response = await axios.post('/users/login', userData)
 
     if (response.status === 200) {
       const data = response.data

@@ -1,27 +1,39 @@
 import axios from 'axios';
 
-// Configure axios defaults
-axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
-axios.defaults.withCredentials = true;
+// Create axios instance with base configuration
+const axiosInstance = axios.create({
+  baseURL: import.meta.env.VITE_BASE_URL,
+  withCredentials: true,
+  timeout: 10000,
+  headers: {
+    'Content-Type': 'application/json',
+  }
+});
 
 // Add request interceptor to include auth token
-axios.interceptors.request.use(
+axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token') || localStorage.getItem('captain-token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+    console.log('Making request to:', config.baseURL + config.url);
     return config;
   },
   (error) => {
+    console.error('Request error:', error);
     return Promise.reject(error);
   }
 );
 
 // Add response interceptor for error handling
-axios.interceptors.response.use(
-  (response) => response,
+axiosInstance.interceptors.response.use(
+  (response) => {
+    console.log('Response received:', response.status);
+    return response;
+  },
   (error) => {
+    console.error('Response error:', error);
     if (error.response?.status === 401) {
       // Clear tokens and redirect to login
       localStorage.removeItem('token');
@@ -32,4 +44,11 @@ axios.interceptors.response.use(
   }
 );
 
-export default axios;
+// Override default axios with our configured instance
+Object.setPrototypeOf(axios, axiosInstance);
+Object.defineProperty(axios, 'create', {
+  value: axiosInstance.create.bind(axiosInstance),
+  writable: false
+});
+
+export default axiosInstance;
