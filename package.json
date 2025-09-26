@@ -1,4 +1,26 @@
 {
+  "name": "uber-clone",
+  "version": "1.0.0",
+  "description": "Full stack Uber clone application",
+  "main": "Backend/server.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd Backend && npm run dev",
+    "client": "cd frontend && npm run dev",
+    "build": "npm run install-backend && cd frontend && npm run build",
+    "start": "cd Backend && npm start",
+    "install-backend": "cd Backend && npm install",
+    "install-frontend": "cd frontend && npm install",
+    "install-all": "npm run install-backend && npm run install-frontend",
+    "render-build": "npm run install-backend",
+    "render-start": "cd Backend && node server.js"
+  },
+  "keywords": ["uber", "clone", "ride-sharing", "react", "node"],
+  "author": "Razique Hasan",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
   "dependencies": {
     "@react-google-maps/api": "^2.20.7",
     "axios": "^1.12.2",
@@ -10,8 +32,5 @@
     "nodemon": "^3.1.10",
     "react-router-dom": "^7.9.2",
     "socket.io": "^4.8.1"
-  },
-  "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.13"
   }
 }
