@@ -8,9 +8,13 @@ export default defineConfig({
     outDir: 'dist',
     assetsDir: 'assets',
     sourcemap: false,
+    minify: 'terser',
     rollupOptions: {
       output: {
-        manualChunks: undefined,
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          router: ['react-router-dom'],
+        },
       },
     },
   },
@@ -21,5 +25,8 @@ export default defineConfig({
   preview: {
     port: 4173,
     host: true
+  },
+  define: {
+    'process.env': {}
   }
 })
