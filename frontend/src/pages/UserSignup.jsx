@@ -34,6 +34,15 @@ const UserSignup = () => {
       }
 
       console.log('Attempting to register user:', newUser);
+      
+      // First test the POST test route
+      try {
+        const testResponse = await axios.post('/users/test-post', { test: 'data' });
+        console.log('Test POST route works:', testResponse.data);
+      } catch (testError) {
+        console.error('Test POST route failed:', testError);
+      }
+      
       const response = await axios.post('/users/register', newUser)
       console.log('Registration response:', response);
 
