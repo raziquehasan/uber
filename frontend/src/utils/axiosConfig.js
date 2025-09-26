@@ -3,8 +3,8 @@ import axios from 'axios';
 // Debug environment variables
 console.log('VITE_BASE_URL:', import.meta.env.VITE_BASE_URL);
 
-// Set axios defaults globally
-axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
+// Clear any existing baseURL to prevent double URL issue
+axios.defaults.baseURL = '';
 axios.defaults.withCredentials = true;
 axios.defaults.timeout = 10000;
 axios.defaults.headers.common['Content-Type'] = 'application/json';
