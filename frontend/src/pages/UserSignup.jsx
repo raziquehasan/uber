@@ -42,7 +42,7 @@ const UserSignup = () => {
       // First test the POST test route
       try {
         const testResponse = await axios.post(`${backendUrl}/users/test-post`, { test: 'data' }, {
-          withCredentials: true,
+          withCredentials: false,
           timeout: 15000
         });
         console.log('Test POST route works:', testResponse.data);
@@ -51,7 +51,7 @@ const UserSignup = () => {
       }
       
       const response = await axios.post(`${backendUrl}/users/register`, newUser, {
-        withCredentials: true,
+        withCredentials: false,
         timeout: 15000
       })
       console.log('Registration response:', response);
