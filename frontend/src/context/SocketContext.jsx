@@ -4,7 +4,7 @@ import { io } from 'socket.io-client';
 
 export const SocketContext = createContext();
 
-const socket = io('http://localhost:4000'); // Updated to use localhost:4000
+const socket = io(import.meta.env.VITE_BASE_URL); // Use environment variable
 
 const SocketProvider = ({ children }) => {
     useEffect(() => {

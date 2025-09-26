@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+// Debug environment variables
+console.log('VITE_BASE_URL:', import.meta.env.VITE_BASE_URL);
+
 // Create axios instance with base configuration
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
