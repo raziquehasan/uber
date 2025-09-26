@@ -35,15 +35,25 @@ const UserSignup = () => {
 
       console.log('Attempting to register user:', newUser);
       
+      // Use hardcoded URL to avoid any baseURL issues
+      const backendUrl = 'https://uber-poz1.onrender.com';
+      console.log('Using backend URL:', backendUrl);
+      
       // First test the POST test route
       try {
-        const testResponse = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/test-post`, { test: 'data' });
+        const testResponse = await axios.post(`${backendUrl}/users/test-post`, { test: 'data' }, {
+          withCredentials: true,
+          timeout: 15000
+        });
         console.log('Test POST route works:', testResponse.data);
       } catch (testError) {
         console.error('Test POST route failed:', testError);
       }
       
-      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/register`, newUser)
+      const response = await axios.post(`${backendUrl}/users/register`, newUser, {
+        withCredentials: true,
+        timeout: 15000
+      })
       console.log('Registration response:', response);
 
       if (response.status === 201) {
