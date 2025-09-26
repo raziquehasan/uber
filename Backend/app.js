@@ -57,6 +57,15 @@ app.get('/users/test', (req, res) => {
     });
 });
 
+// Test POST route
+app.post('/users/test-post', (req, res) => {
+    res.json({ 
+        message: 'POST route is working!',
+        body: req.body,
+        timestamp: new Date().toISOString()
+    });
+});
+
 app.use('/users', userRoutes);
 app.use('/captains', captainRoutes);
 app.use('/maps', mapsRoutes);
