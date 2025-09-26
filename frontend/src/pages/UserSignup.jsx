@@ -15,7 +15,6 @@ const UserSignup = () => {
   const navigate = useNavigate()
 
 
-
   const { user, setUser } = useContext(UserDataContext)
 
 
@@ -23,28 +22,36 @@ const UserSignup = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault()
-    const newUser = {
-      fullname: {
-        firstname: firstName,
-        lastname: lastName
-      },
-      email: email,
-      password: password
-    }
+    
+    try {
+      const newUser = {
+        fullname: {
+          firstname: firstName,
+          lastname: lastName
+        },
+        email: email,
+        password: password
+      }
 
-    const response = await axios.post('/users/register', newUser)
+      console.log('Attempting to register user:', newUser);
+      const response = await axios.post('/users/register', newUser)
+      console.log('Registration response:', response);
 
-    if (response.status === 201) {
-      const data = response.data
-      setUser(data.user)
-      localStorage.setItem('token', data.token)
-      navigate('/home')
+      if (response.status === 201) {
+        const data = response.data
+        setUser(data.user)
+        localStorage.setItem('token', data.token)
+        navigate('/home')
+      }
+    } catch (error) {
+      console.error('Registration error:', error);
+      console.error('Error response:', error.response?.data);
+      alert('Registration failed: ' + (error.response?.data?.message || error.message));
     }
 
 
     setEmail('')
     setFirstName('')
-    setLastName('')
     setPassword('')
 
   }
