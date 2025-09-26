@@ -8,7 +8,9 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "render-build": "npm install && vite build"
+    "render-build": "npm install && vite build",
+    "clean": "rm -rf dist node_modules",
+    "fresh-build": "npm install --force && vite build"
   },
   "dependencies": {
     "@gsap/react": "^2.1.1",
