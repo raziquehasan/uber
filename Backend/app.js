@@ -12,18 +12,28 @@ const rideRoutes = require('./routes/ride.routes');
 
 connectToDb();
 
-// Temporary CORS configuration - Allow all origins for now
+// Very permissive CORS configuration to ensure it works
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, Cookie');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    
+    if (req.method === 'OPTIONS') {
+        res.sendStatus(200);
+    } else {
+        next();
+    }
+});
+
+// Also use cors middleware as backup
 app.use(cors({
-    origin: true, // Allow all origins
+    origin: '*',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Cookie', 'X-Requested-With', 'Accept'],
-    optionsSuccessStatus: 200,
-    preflightContinue: false
+    optionsSuccessStatus: 200
 }));
-
-// Add explicit OPTIONS handler for all routes
-app.options('*', cors());
 // Request logging middleware
 app.use((req, res, next) => {
     console.log(`${new Date().toISOString()} - ${req.method} ${req.path} - Origin: ${req.headers.origin}`);
